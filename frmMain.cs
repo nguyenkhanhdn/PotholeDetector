@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Device.Location;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -20,6 +21,10 @@ namespace PotholeDetector
 {
     public partial class frmMain : Form
     {
+        private GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
+
+        private GeoCoordinateWatcher _geoWatcher;
+
         private VideoCaptureDevice captureDevice;
         private FilterInfoCollection filterInfo;
         void StartCamera()
@@ -48,7 +53,27 @@ namespace PotholeDetector
         public frmMain()
         {
             InitializeComponent();
+            _geoWatcher = new GeoCoordinateWatcher();
+            _geoWatcher.StatusChanged += GeoWatcherOnStatusChanged;
         }
+
+        private void GeoWatcherOnStatusChanged(object sender, GeoPositionStatusChangedEventArgs e)
+        {
+            if (e.Status != GeoPositionStatus.Ready) return;
+
+            GeoPositionPermission allowed = _geoWatcher.Permission;
+
+            GeoPosition<GeoCoordinate> coordinate = _geoWatcher.Position;
+
+            GeoCoordinate deviceLocation = coordinate.Location;
+            DateTimeOffset fetchedAt = coordinate.Timestamp;
+            string url = string.Format("Lat: {0}, Long: {1}, fetched at: {2}",
+                deviceLocation.Latitude,
+                deviceLocation.Longitude,
+                fetchedAt.DateTime.ToShortTimeString());
+
+            label2.Text = url;
+        }    
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -204,6 +229,50 @@ namespace PotholeDetector
         private void button1_Click_1(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void ribbonButton2_Click(object sender, EventArgs e)
+        {
+            //watcher = new GeoCoordinateWatcher();
+            //// Catch the StatusChanged event.  
+            //watcher.StatusChanged += Watcher_StatusChanged;
+            //// Start the watcher.  
+            //watcher.Start();
+            _geoWatcher.Start();
+            //MessageBox.Show(PotholeUtils.GetLocation());
+        }
+        private void Watcher_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e) // Find GeoLocation of Device  
+        {
+            string latitude = "0";
+            string longitute = "0";
+            try
+            {
+                if (e.Status == GeoPositionStatus.Ready)
+                {
+                    // Display the latitude and longitude.  
+                    if (watcher.Position.Location.IsUnknown)
+                    {
+                        latitude = "0";
+                        longitute = "0";
+                    }
+                    else
+                    {
+                        latitude = watcher.Position.Location.Latitude.ToString();
+                        longitute = watcher.Position.Location.Longitude.ToString();
+                    }
+                }
+                else
+                {
+                    latitude = "0";
+                    longitute = "0";
+                }
+            }
+            catch (Exception)
+            {
+                latitude = "0";
+                longitute = "0";
+            }
+            MessageBox.Show(string.Format("{0},{1}", latitude, longitute));
         }
     }
 }

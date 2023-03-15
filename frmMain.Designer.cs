@@ -35,16 +35,20 @@ namespace PotholeDetector
             this.ribbonButton1 = new System.Windows.Forms.RibbonButton();
             this.ribbonTab1 = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
+            this.ribbonButton2 = new System.Windows.Forms.RibbonButton();
+            this.ribbonButton3 = new System.Windows.Forms.RibbonButton();
+            this.ribbonButton4 = new System.Windows.Forms.RibbonButton();
             this.ribbonTab2 = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel1 = new System.Windows.Forms.RibbonPanel();
             this.ribbonPanel2 = new System.Windows.Forms.RibbonPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -96,8 +100,36 @@ namespace PotholeDetector
             // 
             // ribbonPanel3
             // 
+            this.ribbonPanel3.Items.Add(this.ribbonButton2);
+            this.ribbonPanel3.Items.Add(this.ribbonButton3);
+            this.ribbonPanel3.Items.Add(this.ribbonButton4);
             this.ribbonPanel3.Name = "ribbonPanel3";
             this.ribbonPanel3.Text = "Pothole Detector";
+            // 
+            // ribbonButton2
+            // 
+            this.ribbonButton2.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton2.Image")));
+            this.ribbonButton2.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton2.LargeImage")));
+            this.ribbonButton2.Name = "ribbonButton2";
+            this.ribbonButton2.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton2.SmallImage")));
+            this.ribbonButton2.Text = "Get Loc";
+            this.ribbonButton2.Click += new System.EventHandler(this.ribbonButton2_Click);
+            // 
+            // ribbonButton3
+            // 
+            this.ribbonButton3.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton3.Image")));
+            this.ribbonButton3.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton3.LargeImage")));
+            this.ribbonButton3.Name = "ribbonButton3";
+            this.ribbonButton3.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton3.SmallImage")));
+            this.ribbonButton3.Text = "Upload";
+            // 
+            // ribbonButton4
+            // 
+            this.ribbonButton4.Image = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.Image")));
+            this.ribbonButton4.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.LargeImage")));
+            this.ribbonButton4.Name = "ribbonButton4";
+            this.ribbonButton4.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton4.SmallImage")));
+            this.ribbonButton4.Text = "Save";
             // 
             // ribbonTab2
             // 
@@ -138,12 +170,23 @@ namespace PotholeDetector
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(290, 467);
             this.panel2.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(40, 37);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(70, 26);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "label1";
             // 
             // panel1
             // 
@@ -185,15 +228,15 @@ namespace PotholeDetector
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // label1
+            // label2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(40, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 26);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(40, 104);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 26);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "label2";
             // 
             // frmMain
             // 
@@ -241,5 +284,9 @@ namespace PotholeDetector
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RibbonButton ribbonButton2;
+        private System.Windows.Forms.RibbonButton ribbonButton3;
+        private System.Windows.Forms.RibbonButton ribbonButton4;
+        private System.Windows.Forms.Label label2;
     }
 }

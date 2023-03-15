@@ -67,6 +67,7 @@
       <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Device" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -117,6 +118,7 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="PotholeUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmMain.resx">
@@ -132,6 +134,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="bin\Release\model\example\README.md" />
+    <None Include="bin\Release\model\model.onnx" />
+    <None Include="bin\Release\model\signature.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -148,6 +153,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="images\exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Release\model\example\onnx_example.py" />
+    <Content Include="bin\Release\model\example\requirements.txt" />
+    <Content Include="bin\Release\model\labels.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\System.Text.Json.6.0.2\build\System.Text.Json.targets" Condition="Exists('packages\System.Text.Json.6.0.2\build\System.Text.Json.targets')" />
