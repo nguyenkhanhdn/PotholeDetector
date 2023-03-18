@@ -43,12 +43,12 @@ namespace PotholeDetector
             this.ribbonPanel2 = new System.Windows.Forms.RibbonPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -77,7 +77,7 @@ namespace PotholeDetector
             // 
             this.ribbon1.QuickAccessToolbar.Items.Add(this.ribbonButton1);
             this.ribbon1.RibbonTabFont = new System.Drawing.Font("Trebuchet MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ribbon1.Size = new System.Drawing.Size(1288, 193);
+            this.ribbon1.Size = new System.Drawing.Size(1288, 200);
             this.ribbon1.TabIndex = 0;
             this.ribbon1.Tabs.Add(this.ribbonTab1);
             this.ribbon1.Tabs.Add(this.ribbonTab2);
@@ -151,7 +151,7 @@ namespace PotholeDetector
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 193);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 200);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -164,7 +164,7 @@ namespace PotholeDetector
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainer1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.splitContainer1.Size = new System.Drawing.Size(1288, 467);
+            this.splitContainer1.Size = new System.Drawing.Size(1288, 460);
             this.splitContainer1.SplitterDistance = 290;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -175,8 +175,18 @@ namespace PotholeDetector
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(290, 467);
+            this.panel2.Size = new System.Drawing.Size(290, 460);
             this.panel2.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(40, 104);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 26);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "label2";
             // 
             // label1
             // 
@@ -194,7 +204,7 @@ namespace PotholeDetector
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(994, 467);
+            this.panel1.Size = new System.Drawing.Size(994, 460);
             this.panel1.TabIndex = 1;
             // 
             // pictureBox1
@@ -202,7 +212,7 @@ namespace PotholeDetector
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(994, 467);
+            this.pictureBox1.Size = new System.Drawing.Size(994, 460);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -227,16 +237,6 @@ namespace PotholeDetector
             this.button1.Text = "X";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(40, 104);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 26);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "label2";
             // 
             // frmMain
             // 
