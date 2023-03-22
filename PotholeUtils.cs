@@ -14,8 +14,6 @@ namespace PotholeDetector
 {
     public class PotholeUtils
     {
-
-        
         public static string GetLoc()
         {
             GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();

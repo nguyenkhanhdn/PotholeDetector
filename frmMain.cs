@@ -96,10 +96,18 @@ namespace PotholeDetector
             byte[] bytes = ImageToByte2(bitmap);
             string className = Predict(bytes);
             ProcessResult(className);
+
+            if ((className=="huhai") || (className== "xuocnhe"))
+            {
+                UploadImage.AddPothole("0", "0", "0", bytes);
+            }
+
         }
         private void ProcessResult(string level)
         {
             this.label1.Text = level;
+
+            #region process
             //SoundPlayer simpleSound = null;
             //if (level == "level 1")
             //{
@@ -145,6 +153,7 @@ namespace PotholeDetector
             //    }
             //    SendToCloud(0, "Cấp độ cảnh báo: cấp độ 0", "Bình thường");
             //}
+            #endregion
         }
 
         private void SendToCloud(int level, string desc, string onOff)
