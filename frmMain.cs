@@ -228,6 +228,7 @@ namespace PotholeDetector
         {
             CheckForIllegalCrossThreadCalls = false;
             StartCamera();
+            watcher2.Start();
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -282,6 +283,30 @@ namespace PotholeDetector
                 longitute = "0";
             }
             MessageBox.Show(string.Format("{0},{1}", latitude, longitute));
+        }
+        private GeoCoordinateWatcher watcher2 = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
+        private void ribbonButton4_Click(object sender, EventArgs e)
+        {
+            LocationMessage();
+        }
+
+        private void LocationMessage()
+        {
+
+            var whereat = watcher2.Position.Location;
+            
+            var Lat = whereat.Latitude.ToString("0.000000");
+            var Lon = whereat.Longitude.ToString("0.000000");
+
+
+            //optional parameters for future use
+            whereat.Altitude.ToString();
+            whereat.HorizontalAccuracy.ToString();
+            whereat.VerticalAccuracy.ToString();
+            whereat.Course.ToString();
+            whereat.Speed.ToString();
+
+            MessageBox.Show(string.Format("Lat: {0}\nLon: {1}", Lat, Lon));
         }
     }
 }
