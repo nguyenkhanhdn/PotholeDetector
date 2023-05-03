@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Device.Location;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Media;
@@ -73,35 +74,81 @@ namespace PotholeDetector
                 fetchedAt.DateTime.ToShortTimeString());
 
             label2.Text = url;
-        }    
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+        private string GetGrantParentDir()
+        {
+            string path = Environment.CurrentDirectory;
+            string fullpath = System.IO.Path.Combine(path, @"..\..");
+            return fullpath;
+        }
+
+        private void UploadFile(string filename)
+        {
+            try
+            {
+                var wc = new WebClient();
+                byte[] response = wc.UploadFile("https://localhost:44348/Home/UploadFile", "POST", filename);
+                string s = System.Text.Encoding.ASCII.GetString(response);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Upload file: " + ex.Message);
+            }                        
+        }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //string imageDir = Path.Combine(Environment.CurrentDirectory, "..", "..");
-            var bitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            pictureBox1.DrawToBitmap(bitmap, pictureBox1.ClientRectangle);
-            //ImageFormat imageFormat = imageFormat = ImageFormat.Jpeg;
-            //string filename = imageDir + "\\images\\capture.jpg";
-            //bitmap.Save(filename, imageFormat);
-
-            /*
-            string imageDir = Path.Combine(Environment.CurrentDirectory, "..", "..");
-            string filename = imageDir + "\\Images\\fire1.jpg";
-            */
-            byte[] bytes = ImageToByte2(bitmap);
-            string className = Predict(bytes);
-            ProcessResult(className);
-
-            if ((className=="huhai") || (className== "xuocnhe"))
+            try
             {
-                UploadImage.AddPothole("0", "0", "0", bytes);
-            }
+                string parentDir = Environment.CurrentDirectory;
 
+                string imageDir = Path.Combine(parentDir,"holes");
+                var bitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+                pictureBox1.DrawToBitmap(bitmap, pictureBox1.ClientRectangle);
+                byte[] bytes = ImageToByte2(bitmap);
+                string className = Predict(bytes);
+                
+                ProcessResult(className);
+
+                if ((className == "huhai") || (className == "xuocnhe"))
+                {
+                    //Save image for upload to website
+                    ImageFormat imageFormat = imageFormat = ImageFormat.Jpeg;
+                    string filename = "pothole" + DateTime.Now.ToLongTimeString().GetHashCode().ToString() + ".jpg";
+                    string fullpath = System.IO.Path.Combine(imageDir,filename);
+                    MessageBox.Show("Save image.");
+                    bitmap.Save(fullpath, imageFormat);
+                    
+
+                    //Get location where pothole was detected
+                    var whereat = watcher2.Position.Location;
+                    var Lat = whereat.Latitude.ToString("0.00000000");
+                    var Lon = whereat.Longitude.ToString("0.00000000");
+                    //Format for map location
+                    string loc = string.Format("https://maps.google.com/?q={0},{1}", Lat, Lon);
+
+                    //optional parameters for future use
+                    whereat.Altitude.ToString();
+                    whereat.HorizontalAccuracy.ToString();
+                    whereat.VerticalAccuracy.ToString();
+                    whereat.Course.ToString();
+                    whereat.Speed.ToString();
+                    MessageBox.Show("upload image");
+                    //Call upload file
+                    UploadFile(fullpath);
+                    MessageBox.Show("Add to database");
+                    UploadImage.AddPothole2(Lat, Lon, loc, filename);                    
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Timer error: " + ex.Message);
+            }
         }
         private void ProcessResult(string level)
         {
@@ -192,7 +239,9 @@ namespace PotholeDetector
 
         private string Predict(string fileName)
         {
-            var signatureFilePath = Environment.CurrentDirectory + @"\model\signature.json";
+            //var signatureFilePath = Environment.CurrentDirectory + @"\model\signature.json";
+
+            var signatureFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"..\..\model\signature.json");
             var imageToClassify = fileName;
 
             lobe.ImageClassifier.Register("onnx", () => new OnnxImageClassifier());
@@ -206,8 +255,8 @@ namespace PotholeDetector
 
         private string Predict(byte[] bitmap)
         {
-            var signatureFilePath = Environment.CurrentDirectory + @"\model\signature.json";
-
+            //var signatureFilePath = Environment.CurrentDirectory + @"\model\signature.json";
+            var signatureFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, @"..\..\model\signature.json");
             lobe.ImageClassifier.Register("onnx", () => new OnnxImageClassifier());
             var classifier = ImageClassifier.CreateFromSignatureFile(new FileInfo(signatureFilePath));
 
@@ -243,13 +292,7 @@ namespace PotholeDetector
 
         private void ribbonButton2_Click(object sender, EventArgs e)
         {
-            //watcher = new GeoCoordinateWatcher();
-            //// Catch the StatusChanged event.  
-            //watcher.StatusChanged += Watcher_StatusChanged;
-            //// Start the watcher.  
-            //watcher.Start();
-            _geoWatcher.Start();
-            //MessageBox.Show(PotholeUtils.GetLocation());
+            //UploadImage.AddPothole2("1001010", "10101001", "112121212", "abc.jpog");
         }
         private void Watcher_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e) // Find GeoLocation of Device  
         {
@@ -290,14 +333,17 @@ namespace PotholeDetector
             LocationMessage();
         }
 
-        private void LocationMessage()
+        private string LocationMessage()
         {
+
+            //https://www.google.com/maps/@16.0749383,108.2258899,15z
 
             var whereat = watcher2.Position.Location;
             
-            var Lat = whereat.Latitude.ToString("0.000000");
-            var Lon = whereat.Longitude.ToString("0.000000");
+            var Lat = whereat.Latitude.ToString("0.000000000");
+            var Lon = whereat.Longitude.ToString("0.000000000");
 
+            string loc = string.Format("https://www.google.com/maps/@{0},{1}z",Lat,Lon);
 
             //optional parameters for future use
             whereat.Altitude.ToString();
@@ -305,8 +351,33 @@ namespace PotholeDetector
             whereat.VerticalAccuracy.ToString();
             whereat.Course.ToString();
             whereat.Speed.ToString();
+            //MessageBox.Show(loc);
+            return loc;
+        }
 
-            MessageBox.Show(string.Format("Lat: {0}\nLon: {1}", Lat, Lon));
+        private void ribbonButton3_Click(object sender, EventArgs e)
+        {
+            
+            String uriString = "http://localhost/pothole/uploads";
+
+            // Create a new WebClient instance.
+            WebClient myWebClient = new WebClient();
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "PNG files (*.png)|*.png|Jpeg files (*.jpg)|*.jpg|All files (*.*)|*.*";
+            ofd.FilterIndex = 2;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                byte[] responseArray = myWebClient.UploadFile(uriString, ofd.FileName);
+                MessageBox.Show(System.Text.Encoding.ASCII.GetString(responseArray));
+            }
+            // Upload the file to the URI.
+            // The 'UploadFile(uriString,fileName)' method implicitly uses HTTP POST method.
+
+            else
+            {
+                MessageBox.Show("Error");
+            }
         }
     }
 }

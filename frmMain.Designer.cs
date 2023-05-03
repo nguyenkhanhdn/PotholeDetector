@@ -122,6 +122,7 @@ namespace PotholeDetector
             this.ribbonButton3.Name = "ribbonButton3";
             this.ribbonButton3.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton3.SmallImage")));
             this.ribbonButton3.Text = "Upload";
+            this.ribbonButton3.Click += new System.EventHandler(this.ribbonButton3_Click);
             // 
             // ribbonButton4
             // 
@@ -221,7 +222,7 @@ namespace PotholeDetector
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
+            this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // button1
