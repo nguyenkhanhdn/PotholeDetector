@@ -147,7 +147,7 @@ namespace PotholeDetector
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Timer error: " + ex.Message);
+                //MessageBox.Show("Timer error: " + ex.Message);
             }
         }
         private void ProcessResult(string level)
