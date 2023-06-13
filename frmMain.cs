@@ -119,7 +119,9 @@ namespace PotholeDetector
                 {
                     //Save image for upload to website
                     ImageFormat imageFormat = imageFormat = ImageFormat.Jpeg;
-                    string filename = "pothole" + DateTime.Now.ToLongTimeString().GetHashCode().ToString() + ".jpg";
+                    //string filename = "pothole" + DateTime.Now.ToLongTimeString().GetHashCode().ToString() + ".jpg";
+                    string filename = "hole" + DateTime.Now.ToString().Replace("/", "-").Replace(" ", "_").Replace(":", "") + ".jpg";
+
                     string fullpath = System.IO.Path.Combine(imageDir,filename);
                     MessageBox.Show("Save image.");
                     bitmap.Save(fullpath, imageFormat);
